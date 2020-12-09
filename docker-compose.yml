@@ -1,0 +1,15 @@
+version: '3'
+services:
+  express:
+    build:
+      context: ./express  # 빌드할 Dockerfile이 위치한 경로
+    container_name: express
+    ports: 
+     - "9999:9999"
+    # expose:
+    #   - "3000"           # 다른 컨테이너에게 3000번 포트 open
+    volumes:
+      - ./express/src:/src # host <-> container의 source 디렉토리를 공유
+      - /src/node_modules # !!!!!!!! Dockerfile 설명에서 다시 설명합니다.
+    command: "nodemon -L ./bin/www " #대기상태로 있다가 대상이 완료되면 express
+    restart: "always"
